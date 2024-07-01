@@ -12,7 +12,7 @@ public class Address {
     /**
      * 邮编
      */
-    private Integer postcode;
+    private String postcode;
     /**
      * 街道
      */

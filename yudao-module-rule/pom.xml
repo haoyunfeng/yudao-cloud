@@ -16,7 +16,7 @@
     <description>规则引擎</description>
 
     <modules>
-        <module>yudao-module-rule-engine</module>
+        <module>yudao-module-rule-drools-demo</module>
 <!--        <module>yudao-module-rule-drools</module>-->
     </modules>
 

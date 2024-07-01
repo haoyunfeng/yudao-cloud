@@ -1,10 +1,13 @@
-package cn.iocoder.engine.drools.fact;
+package cn.iocoder.engine.drools.model.fact;
+
+import lombok.Builder;
 
 /**
  * @author haoyunfeng
  * @create 2024/6/25 15:28
  * @description
  */
+@Builder
 public class AddressCheckResult {
 
     /**
