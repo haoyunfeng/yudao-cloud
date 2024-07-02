@@ -4,21 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.iocoder.cloud</groupId>
-        <artifactId>yudao</artifactId>
+        <groupId>cn.iocoder.boot</groupId>
+        <artifactId>yudao-module-strategy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <groupId>cn.iocoder.boot</groupId>
-    <artifactId>yudao-module-rule</artifactId>
-    <packaging>pom</packaging>
-    <name>${project.artifactId}</name>
-    <description>规则引擎</description>
-
-    <modules>
-        <module>yudao-module-rule-drools-demo</module>
-<!--        <module>yudao-module-rule-drools</module>-->
-    </modules>
+    <artifactId>yudao-module-strategy-engine</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

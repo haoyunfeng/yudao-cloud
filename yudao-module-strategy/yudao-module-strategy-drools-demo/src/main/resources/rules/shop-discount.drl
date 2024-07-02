@@ -1,0 +1,36 @@
+// 包名，必须防止到第一行，这个名字需要和 kbase中package属性的值一致
+package com.huan.shop
+
+/**
+ * 倒入类
+ */
+import cn.iocoder.engine.drools.model.fact.CustomerOrder
+
+// 定义规则
+rule "shop-rule-01"
+    when
+        // 模式匹配：到工作内存中查找CustomerOrder，并且这个对象的purchaseQuantity值需要是1，
+        // 如果条件成立，如果条件成立，$order是绑定变量名，一般以$开头，和fact对象区分开
+        $order:CustomerOrder(purchaseQuantity == 1)
+    then
+        System.out.println("匹配规则 shop-rule-01");
+        // 赋值，此处赋值后，在Java代码中获取获取到赋值后的值
+        $order.setDiscount(1D);
+end
+
+rule "shop-rule-02"
+    when
+        $order:CustomerOrder(purchaseQuantity == 2)
+    then
+        System.out.println("匹配规则 shop-rule-02");
+        System.out.println(drools.getRule().getDialect());
+        $order.setDiscount(0.98);
+end
+
+rule "shop-rule-03"
+    when
+        $order:CustomerOrder(purchaseQuantity >= 3)
+    then
+        System.out.println("匹配规则 shop-rule-03");
+        $order.setDiscount(0.85);
+end

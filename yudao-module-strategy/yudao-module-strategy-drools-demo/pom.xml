@@ -5,15 +5,15 @@
 
     <parent>
         <groupId>cn.iocoder.boot</groupId>
-        <artifactId>yudao-module-rule</artifactId>
+        <artifactId>yudao-module-strategy</artifactId>
         <version>${revision}</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>yudao-module-rule-engine</artifactId>
+    <artifactId>yudao-module-strategy-drools-demo</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>引擎-规则引擎</description>
+    <description>引擎-规则引擎-demo</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

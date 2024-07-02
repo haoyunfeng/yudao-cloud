@@ -1,0 +1,11 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--         xmlns="http://www.drools.org/xsd/kmodule">-->
+
+<!--    <kbase name="demo-rules" packages="rules">-->
+<!--&lt;!&ndash;        <ksession name="address-testKS"/>&ndash;&gt;-->
+<!--        <ksession name="shop-ksession" default="false" type="stateless"/>-->
+<!--        <ksession name="shop-ksession-stateful" default="false" type="stateful"/>-->
+<!--    </kbase>-->
+
+<!--</kmodule>-->
