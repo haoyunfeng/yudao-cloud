@@ -1,10 +1,11 @@
 // 包名，必须防止到第一行，这个名字需要和 kbase中package属性的值一致
-package com.huan.shop
+package rules
 
 /**
  * 倒入类
  */
 import cn.iocoder.engine.drools.model.fact.CustomerOrder
+import java.util.Map
 
 // 定义规则
 rule "shop-rule-01"
@@ -29,8 +30,11 @@ end
 
 rule "shop-rule-03"
     when
-        $order:CustomerOrder(purchaseQuantity >= 3)
+//        $order:CustomerOrder(purchaseQuantity >= 3)
+        $map : Map(["test"] != '1')
     then
-        System.out.println("匹配规则 shop-rule-03");
-        $order.setDiscount(0.85);
+//        System.out.println("匹配规则 shop-rule-03");
+//        $order.setDiscount(0.85);
+        $map.put("test","456");
+        System.out.println($map.get("test"));
 end

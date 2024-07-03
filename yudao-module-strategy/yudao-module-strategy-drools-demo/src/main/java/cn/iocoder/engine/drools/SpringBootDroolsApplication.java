@@ -15,6 +15,4 @@ public class SpringBootDroolsApplication {
         SpringApplication.run(SpringBootDroolsApplication.class, args);
     }
 
-
-
 }

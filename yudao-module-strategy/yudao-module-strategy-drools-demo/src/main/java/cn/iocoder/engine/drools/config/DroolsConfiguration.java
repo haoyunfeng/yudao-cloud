@@ -33,7 +33,8 @@ public class DroolsConfiguration {
     @ConditionalOnMissingBean(KieFileSystem.class)
     public KieFileSystem kieFileSystem() throws IOException {
         KieFileSystem kieFileSystem = getKieServices().newKieFileSystem();
-        for (Resource file : getRuleFiles()) {
+        Resource[] resources = getRuleFiles();
+        for (Resource file : resources) {
             kieFileSystem.write(ResourceFactory.newClassPathResource(RULES_PATH + file.getFilename(), "UTF-8"));
         }
         return kieFileSystem;
@@ -44,9 +45,8 @@ public class DroolsConfiguration {
         return resourcePatternResolver.getResources("classpath*:" + RULES_PATH + "**/*.*");
     }
 
-
-    @Primary
     @Bean
+    @ConditionalOnMissingBean(KieSession.class)
     public KieContainer kieContainer() throws IOException {
         final KieRepository kieRepository = getKieServices().getRepository();
 

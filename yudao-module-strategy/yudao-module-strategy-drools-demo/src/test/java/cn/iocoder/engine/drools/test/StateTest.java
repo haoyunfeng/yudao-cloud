@@ -4,17 +4,16 @@ import cn.iocoder.engine.drools.model.fact.CustomerOrder;
 import jakarta.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.event.rule.DebugAgendaEventListener;
 import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashMap;
 
 /**
  * @author haoyunfeng
@@ -28,8 +27,8 @@ public class StateTest {
     @Resource
     private KieContainer kieContainer;
 
-    @Resource
-    private KieSession kieSession;
+//    @Resource
+//    private KieSession kieSession;
 
     @Test
     public void testStatelessSession(){
@@ -52,17 +51,23 @@ public class StateTest {
     @Test
     public void statefulSessionTest() {
         // 创建一个对象，可以理解为 Fact对象，即事实对象
-        CustomerOrder customerOrder = new CustomerOrder(3);
+        CustomerOrder customerOrder = new CustomerOrder(4);
         // 添加监听器，便于观察日志
+        KieSession kieSession = kieContainer.newKieSession();
         kieSession.addEventListener(new DebugRuleRuntimeEventListener());
         // 将customerOrder对象加入到工作内存中
-        kieSession.insert(customerOrder);
+        HashMap map = new HashMap();
+        map.put("test", "123");
+        kieSession.insert(map);
+//        kieSession.insert(customerOrder);
+
         // 触发所有的规则，如果只想触发指定的规则，则使用fireAllRules(AgendaFilter agendaFilter)方法
         kieSession.fireAllRules();
 
         // 有状态的session一定需要调用dispose方法
         kieSession.dispose();
 
-        System.err.println("通过规则后，获取到的折扣为:" + customerOrder.getDiscount());
+//        System.err.println("通过规则后，获取到的折扣为:" + customerOrder.getDiscount());
+        System.err.println("map结果:" + map.get("test"));
     }
 }

@@ -1,0 +1,21 @@
+// 测试有状态的Session
+package rules.stateful
+
+import cn.iocoder.engine.drools.model.fact.Counter
+
+// 将counter中的cnt的值递增一下
+rule "stateful_rule_count_increment"
+    when
+        $counter: Counter( )
+    then
+        $counter.setCnt($counter.getCnt() + 1);
+        System.out.println("rule_count_increment: count name:[" + $counter.getName()+"],cnt=[" + $counter.getCnt() + "]");
+end
+
+// 如果工作内存中同时存在 count-01 和 counter-02 则输出ok
+rule "stateful_rule_count_exists"
+    when
+        Counter(name == "count-01") and Counter(name == "count-02")
+    then
+        System.out.println("ok");
+end

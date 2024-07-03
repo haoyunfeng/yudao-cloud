@@ -1,11 +1,24 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-<!--         xmlns="http://www.drools.org/xsd/kmodule">-->
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.drools.org/xsd/kmodule">
 
-<!--    <kbase name="demo-rules" packages="rules">-->
-<!--&lt;!&ndash;        <ksession name="address-testKS"/>&ndash;&gt;-->
-<!--        <ksession name="shop-ksession" default="false" type="stateless"/>-->
-<!--        <ksession name="shop-ksession-stateful" default="false" type="stateful"/>-->
-<!--    </kbase>-->
+    <kbase name="demo-rules" packages="rules">
+        <ksession name="address-testKS"/>
+        <ksession name="shop-ksession" default="false" type="stateless"/>
+        <ksession name="shop-ksession-stateful" default="false" type="stateful"/>
+    </kbase>
+    <kbase name="kabse-01" packages="rules.stateful" default="false">
+        <!--
+            type="stateful" 表示有状态的session
+            threadSafe="true" 表示线程安全，即该session可以在多个线程下使用，但是这样如果存在全局变量的话，结果会如何？
+        -->
+        <ksession name="stateful-session" default="false" type="stateful" threadSafe="true"/>
+    </kbase>
+    <kbase name="kabse-02" packages="rules.stateless" default="false">
+        <!--
+            type="stateless" 表示无状态的session
+        -->
+        <ksession name="stateless-session" default="false" type="stateless"/>
+    </kbase>
 
-<!--</kmodule>-->
+</kmodule>

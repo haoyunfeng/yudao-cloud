@@ -1,4 +1,4 @@
-package plausibcheck.adress
+package rules
 
 import cn.iocoder.engine.drools.model.Address;
 import cn.iocoder.engine.drools.model.fact.AddressCheckResult;
