@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author haoyunfeng
@@ -38,10 +39,14 @@ public class ScoreCardTest {
         Ratio ratio2 = Ratio.builder().ratio(35).type("2").build();
         kieSession.insert(ratio2);
         //赋分值
-        HashMap map = new HashMap();
-        map.put("total", "");
+        Map<String,Object> map = new HashMap<>(){{
+            put("total","");
+        }};
         kieSession.insert(map);
+        /** 指定规则两种方式 */
+        /** 方式1,指定AgendaGroup。要求所有的drl都需要指定各自的AgendaGroup */
         kieSession.getAgenda().getAgendaGroup("ratio").setFocus();
+        /** 方式2,使用AgendaFilter执行指定规则 */
         kieSession.fireAllRules(new AgendaFilter() {
             @Override
             public boolean accept(Match match) {
@@ -50,8 +55,8 @@ public class ScoreCardTest {
             }
         });
         kieSession.dispose();
-        System.err.println("ratio1结果:" + ratio1.getScore());
-        System.err.println("ratio2结果:" + ratio2.getScore());
-        System.err.println("total结果:" + map.get("total"));
+        System.out.println("ratio1结果:" + ratio1.getScore());
+        System.out.println("ratio2结果:" + ratio2.getScore());
+        System.out.println("total结果:" + map.get("total"));
     }
 }
