@@ -4,6 +4,7 @@ import cn.iocoder.engine.drools.model.fact.Ratio
 import java.util.Map
 
 rule "handle-ratio-type1"
+agenda-group "ratio"
     salience 10
     when
         $ratio:Ratio( type == 1 && ratio > 40 && ratio < 80)
@@ -15,6 +16,7 @@ rule "handle-ratio-type1"
 end
 
 rule "handle-ratio-type2"
+agenda-group "ratio"
     salience 10
     when
         $ratio:Ratio( type == 2 && ratio < 40 )
@@ -26,6 +28,7 @@ rule "handle-ratio-type2"
 end
 
 rule "handle-ratio-total"
+agenda-group "ratio"
     salience 1
     when
         $ratio1:Ratio( type == 1 && score > 0)

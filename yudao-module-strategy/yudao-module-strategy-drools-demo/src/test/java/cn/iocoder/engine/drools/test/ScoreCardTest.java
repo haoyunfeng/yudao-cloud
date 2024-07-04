@@ -29,16 +29,17 @@ public class ScoreCardTest {
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.addEventListener(new DebugRuleRuntimeEventListener());
 
+        //办件比例
         Ratio ratio1 = Ratio.builder().ratio(65).type("1").build();
         kieSession.insert(ratio1);
-
+        //回流比例
         Ratio ratio2 = Ratio.builder().ratio(35).type("2").build();
         kieSession.insert(ratio2);
-
+        //赋分值
         HashMap map = new HashMap();
         map.put("total", "");
         kieSession.insert(map);
-
+        kieSession.getAgenda().getAgendaGroup("ratio").setFocus();
         kieSession.fireAllRules();
         kieSession.dispose();
         System.err.println("ratio1结果:" + ratio1.getScore());
