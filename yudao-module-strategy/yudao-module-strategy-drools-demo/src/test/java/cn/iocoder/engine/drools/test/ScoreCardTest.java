@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.AgendaFilter;
+import org.kie.api.runtime.rule.Match;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -40,7 +42,13 @@ public class ScoreCardTest {
         map.put("total", "");
         kieSession.insert(map);
         kieSession.getAgenda().getAgendaGroup("ratio").setFocus();
-        kieSession.fireAllRules();
+        kieSession.fireAllRules(new AgendaFilter() {
+            @Override
+            public boolean accept(Match match) {
+                String ruleName = match.getRule().getName();
+                return ruleName.startsWith("handle-ratio");
+            }
+        });
         kieSession.dispose();
         System.err.println("ratio1结果:" + ratio1.getScore());
         System.err.println("ratio2结果:" + ratio2.getScore());
