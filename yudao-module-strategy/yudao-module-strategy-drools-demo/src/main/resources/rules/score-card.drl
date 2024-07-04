@@ -39,7 +39,7 @@ agenda-group "ratio"
         System.out.println("handle-ratio.total.$ratio2:"+$ratio2.getScore());
         System.out.println("handle-ratio.total.add:"+($ratio1.getScore()+$ratio2.getScore()));
         $map.put("total",$ratio1.getScore()+$ratio2.getScore());
-        System.out.println("handle-ratio.40-60:"+$map.get("total"));
+        System.out.println("handle-ratio.total:"+$map.get("total"));
 end
 
 
