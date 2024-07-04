@@ -1,0 +1,42 @@
+package rules
+
+import cn.iocoder.engine.drools.model.fact.Ratio
+import java.util.Map
+
+rule "handle-ratio-type1"
+    salience 10
+    when
+        $ratio:Ratio( type == 1 && ratio > 40 && ratio < 80)
+    then
+        modify($ratio){
+            setScore(60)
+        }
+        System.out.println("handle-ratio.40-60:"+$ratio.getScore());
+end
+
+rule "handle-ratio-type2"
+    salience 10
+    when
+        $ratio:Ratio( type == 2 && ratio < 40 )
+    then
+        modify($ratio){
+            setScore(40)
+        }
+        System.out.println("handle-ratio.40-60:"+$ratio.getScore());
+end
+
+rule "handle-ratio-total"
+    salience 1
+    when
+        $ratio1:Ratio( type == 1 && score > 0)
+        $ratio2:Ratio( type == 2 && score > 0)
+        $map : Map()
+    then
+        System.out.println("handle-ratio.total.$ratio1:"+$ratio1.getScore());
+        System.out.println("handle-ratio.total.$ratio2:"+$ratio2.getScore());
+        System.out.println("handle-ratio.total.add:"+($ratio1.getScore()+$ratio2.getScore()));
+        $map.put("total",$ratio1.getScore()+$ratio2.getScore());
+        System.out.println("handle-ratio.40-60:"+$map.get("total"));
+end
+
+

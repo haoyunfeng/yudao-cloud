@@ -28,13 +28,14 @@ rule "shop-rule-02"
         $order.setDiscount(0.98);
 end
 
-rule "shop-rule-03"
-    when
-//        $order:CustomerOrder(purchaseQuantity >= 3)
-        $map : Map(["test"] != '1')
-    then
-//        System.out.println("匹配规则 shop-rule-03");
-//        $order.setDiscount(0.85);
-        $map.put("test","456");
-        System.out.println($map.get("test"));
-end
+//rule "shop-rule-03"
+//    enabled true
+//    when
+////        $order:CustomerOrder(purchaseQuantity >= 3)
+//        $map : Map(["test"] != '1')
+//    then
+////        System.out.println("匹配规则 shop-rule-03");
+////        $order.setDiscount(0.85);
+//        $map.put("test","456");
+//        System.out.println($map.get("test"));
+//end

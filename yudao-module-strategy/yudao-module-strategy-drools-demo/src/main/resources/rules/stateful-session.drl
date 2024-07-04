@@ -1,5 +1,5 @@
 // 测试有状态的Session
-package rules.stateful
+package rules
 
 import cn.iocoder.engine.drools.model.fact.Counter
 
