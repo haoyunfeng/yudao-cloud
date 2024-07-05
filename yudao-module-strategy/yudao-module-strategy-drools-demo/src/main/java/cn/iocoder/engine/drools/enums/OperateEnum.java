@@ -1,6 +1,5 @@
 package cn.iocoder.engine.drools.enums;
 
-import lombok.Data;
 import lombok.Getter;
 
 /**

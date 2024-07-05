@@ -1,0 +1,31 @@
+package rules
+import cn.iocoder.engine.drools.model.fact.Ratio
+import cn.iocoder.engine.drools.model.fact.Ratio
+import java.util.Map
+rule "handleRatio"
+agenda-group "handle-ratio"
+	salience 10
+	when
+		$handleRatio:Ratio(ratio > 40 )
+	then
+		modify($handleRatio){setScore(60.0)}
+end
+rule "refluxRatio"
+agenda-group "handle-ratio"
+	salience 10
+	when
+		$refluxRatio:Ratio(ratio < 40 && type == 2 )
+	then
+		modify($refluxRatio){setScore(40.0)}
+end
+rule "handle-ratio"
+agenda-group "handle-ratio"
+	salience 1
+	when
+		$handleRatio:Ratio(ruleName == "handleRatio" && score >0)
+		$refluxRatio:Ratio(ruleName == "refluxRatio" && score >0)
+		$map : Map()
+	then
+	    System.out.println("bingo");
+		$map.put("total",$handleRatio.getScore() + $refluxRatio.getScore());
+end

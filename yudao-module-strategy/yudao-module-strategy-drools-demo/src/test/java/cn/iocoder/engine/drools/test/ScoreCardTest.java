@@ -33,10 +33,10 @@ public class ScoreCardTest {
         kieSession.addEventListener(new DebugRuleRuntimeEventListener());
 
         //办件比例
-        Ratio ratio1 = Ratio.builder().ratio(65).type("1").build();
+        Ratio ratio1 = Ratio.builder().ruleName("handleRatio").ratio(65).type("1").build();
         kieSession.insert(ratio1);
         //回流比例
-        Ratio ratio2 = Ratio.builder().ratio(35).type("2").build();
+        Ratio ratio2 = Ratio.builder().ruleName("refluxRatio").ratio(35).type("2").build();
         kieSession.insert(ratio2);
         //赋分值
         Map<String,Object> map = new HashMap<>(){{
@@ -45,15 +45,16 @@ public class ScoreCardTest {
         kieSession.insert(map);
         /** 指定规则两种方式 */
         /** 方式1,指定AgendaGroup。要求所有的drl都需要指定各自的AgendaGroup */
-        kieSession.getAgenda().getAgendaGroup("ratio").setFocus();
+        kieSession.getAgenda().getAgendaGroup("handle-ratio").setFocus();
         /** 方式2,使用AgendaFilter执行指定规则 */
-        kieSession.fireAllRules(new AgendaFilter() {
-            @Override
-            public boolean accept(Match match) {
-                String ruleName = match.getRule().getName();
-                return ruleName.startsWith("handle-ratio");
-            }
-        });
+//        kieSession.fireAllRules(new AgendaFilter() {
+//            @Override
+//            public boolean accept(Match match) {
+//                String ruleName = match.getRule().getName();
+//                return ruleName.startsWith("handle-ratio");
+//            }
+//        });
+        kieSession.fireAllRules();
         kieSession.dispose();
         System.out.println("ratio1结果:" + ratio1.getScore());
         System.out.println("ratio2结果:" + ratio2.getScore());

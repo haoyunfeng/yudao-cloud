@@ -16,5 +16,7 @@ public class Ratio {
 
     private int ratio;
 
-    private int score;
+    private Double score;
+
+    private String ruleName;
 }
