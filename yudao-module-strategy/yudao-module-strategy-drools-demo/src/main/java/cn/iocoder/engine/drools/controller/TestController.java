@@ -1,14 +1,21 @@
 package cn.iocoder.engine.drools.controller;
 
+import cn.iocoder.engine.drools.entity.DroolsRule;
+import cn.iocoder.engine.drools.manager.DroolsManager;
 import cn.iocoder.engine.drools.model.fact.AddressCheckResult;
 import cn.iocoder.engine.drools.model.Address;
+import cn.iocoder.engine.drools.parser.Parser;
+import cn.iocoder.engine.drools.parser.ScoreCardParser;
+import cn.iocoder.engine.drools.vo.scorecard.ScoreCardStrategy;
+import cn.iocoder.yudao.framework.common.util.json.JsonUtils;
 import jakarta.annotation.Resource;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author haoyunfeng
@@ -22,6 +29,9 @@ public class TestController {
 
     @Resource
     private KieContainer kieContainer;
+
+    @Resource
+    private DroolsManager droolsManager;
 
     @RequestMapping("/hello")
     public String hello(){
@@ -45,9 +55,6 @@ public class TestController {
         }else {
             System.out.println("未命中规则");
         }
-//        kieSession.getQueryResults("Postcode should be filled with exactly 5 numbers");
-
-
     }
 
     /**
@@ -63,5 +70,24 @@ public class TestController {
             number=number.append(chars.charAt(rand));
         }
         return number.toString();
+    }
+
+    @PostMapping("/addScoreCard")
+    public void addScoreCardTest(@RequestBody ScoreCardStrategy scoreCardStrategy){
+        System.out.println("scoreCardStrategy:"+ JsonUtils.toJsonString(scoreCardStrategy));
+        Parser parser = new ScoreCardParser();
+        String ruleContent = parser.parse(scoreCardStrategy);
+        DroolsRule droolsRule = DroolsRule.builder()
+                .ruleId(11L)
+                .ruleContent(ruleContent)
+                .kieBaseName("testKieBase")
+                .kiePackageName("rules")
+                .build();
+        droolsManager.addOrUpdateRule(droolsRule);
+    }
+
+    @GetMapping("/scoreCardFireRule")
+    public void testScoreCardFireRule(){
+        droolsManager.fireScoreCardRule("testKieBase");
     }
 }

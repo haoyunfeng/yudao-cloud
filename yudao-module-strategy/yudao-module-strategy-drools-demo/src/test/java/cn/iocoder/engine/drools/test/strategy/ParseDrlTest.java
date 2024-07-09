@@ -8,8 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import cn.iocoder.yudao.framework.common.util.json.JsonUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +59,7 @@ public class ParseDrlTest {
 
         ScoreCardStrategy scoreCardStrategy = ScoreCardStrategy.builder()
                 .strategyName("handle-ratio")
+                .packageName("rules")
                 .isWeight(true)
                 .attributeVoList(List.of(attribute,attribute2))
                 .build();

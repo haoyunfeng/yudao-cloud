@@ -1,6 +1,7 @@
 package cn.iocoder.engine.drools.manager;
 
 import cn.iocoder.engine.drools.entity.DroolsRule;
+import cn.iocoder.engine.drools.model.fact.Ratio;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.drools.compiler.kie.builder.impl.InternalKieModule;
@@ -18,7 +19,9 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author haoyunfeng
@@ -156,5 +159,24 @@ public class DroolsManager {
         kieSession.fireAllRules();
         kieSession.dispose();
         return resultInfo.toString();
+    }
+
+    public void fireScoreCardRule(String kieBaseName) {
+        KieSession kieSession = kieContainer.newKieSession(kieBaseName+ "-session");
+        Ratio ratio1 = Ratio.builder().ruleName("handleRatio").ratio(65).type("1").build();
+        kieSession.insert(ratio1);
+        //回流比例
+        Ratio ratio2 = Ratio.builder().ruleName("refluxRatio").ratio(35).type("2").build();
+        kieSession.insert(ratio2);
+        Map<String,Object> map = new HashMap<>(){{
+            put("total","");
+        }};
+        kieSession.insert(map);
+//        kieSession.getAgenda().getAgendaGroup("handle-ratio").setFocus();
+        kieSession.fireAllRules();
+        kieSession.dispose();
+        System.out.println("ratio1结果:" + ratio1.getScore());
+        System.out.println("ratio2结果:" + ratio2.getScore());
+        System.out.println("total结果:" + map.get("total"));
     }
 }

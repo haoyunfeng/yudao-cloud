@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 @Builder
 public class ScoreCardStrategy {
+    /** 策略包名*/
+    String packageName;
     /** 策略名称 */
     String strategyName;
     /** 是否支持权重 */

@@ -10,14 +10,14 @@ import java.util.Locale;
  * @create 2024/7/5 15:40
  * @description
  */
-public class ScoreCardParser extends AbstractParser{
+public class ScoreCardParser implements Parser{
 
     @Override
-    public String parse( ScoreCardStrategy strategy) {
+    public String parse(ScoreCardStrategy strategy) {
         StringBuilder resultBuilder = new StringBuilder();
 
         /* drl文件头解析 start*/
-        resultBuilder.append("package rules\n");
+        resultBuilder.append("package ").append(strategy.getPackageName()).append("\n");
         strategy.getAttributeVoList().forEach(attribute -> {
             resultBuilder.append("import ").append(attribute.getClassName()).append("\n");
         });
@@ -28,7 +28,7 @@ public class ScoreCardParser extends AbstractParser{
         /* 赋分规则drl解析 start*/
         strategy.getAttributeVoList().forEach(attribute -> {
             resultBuilder.append("rule ").append("\"").append(attribute.getAttributeName()).append("\"").append("\n");
-            resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
+//            resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
             resultBuilder.append("\t").append("salience 10").append("\n");
             resultBuilder.append("\t").append("when").append("\n");
             resultBuilder.append("\t\t");
@@ -58,9 +58,9 @@ public class ScoreCardParser extends AbstractParser{
         });
         /* 赋分规则drl解析 end*/
 
-
+        /* 计算赋分和值:加权求和 start*/
         resultBuilder.append("rule ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
-        resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
+//        resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
         resultBuilder.append("\t").append("salience 1").append("\n");
         resultBuilder.append("\t").append("when").append("\n");
         strategy.getAttributeVoList().forEach(attribute -> {
@@ -84,6 +84,7 @@ public class ScoreCardParser extends AbstractParser{
         resultBuilder.append(");");
 
         resultBuilder.append("\n").append("end");
+        /* 计算赋分和值:加权求和 end*/
 
         System.out.println(resultBuilder);
         return resultBuilder.toString();

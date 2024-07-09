@@ -8,6 +8,6 @@ import cn.iocoder.engine.drools.vo.scorecard.ScoreCardStrategy;
  * @create 2024/7/5 16:02
  * @description
  */
-public abstract class AbstractParser {
-    public abstract String parse(ScoreCardStrategy strategy);
+public interface Parser {
+    String parse(ScoreCardStrategy strategy);
 }
