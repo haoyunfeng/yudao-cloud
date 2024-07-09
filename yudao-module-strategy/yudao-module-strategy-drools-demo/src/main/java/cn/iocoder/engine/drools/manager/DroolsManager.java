@@ -163,6 +163,8 @@ public class DroolsManager {
 
     public void fireScoreCardRule(String kieBaseName) {
         KieSession kieSession = kieContainer.newKieSession(kieBaseName+ "-session");
+        StringBuilder resultInfo = new StringBuilder();
+        kieSession.setGlobal("resultInfo", resultInfo);
         Ratio ratio1 = Ratio.builder().ruleName("handleRatio").ratio(65).type("1").build();
         kieSession.insert(ratio1);
         //回流比例
@@ -172,7 +174,7 @@ public class DroolsManager {
             put("total","");
         }};
         kieSession.insert(map);
-//        kieSession.getAgenda().getAgendaGroup("handle-ratio").setFocus();
+        kieSession.getAgenda().getAgendaGroup("handle-ratio").setFocus();
         kieSession.fireAllRules();
         kieSession.dispose();
         System.out.println("ratio1结果:" + ratio1.getScore());

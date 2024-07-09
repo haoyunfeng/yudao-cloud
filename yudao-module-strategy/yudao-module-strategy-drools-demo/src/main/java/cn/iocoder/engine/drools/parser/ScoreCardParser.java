@@ -28,7 +28,7 @@ public class ScoreCardParser implements Parser{
         /* 赋分规则drl解析 start*/
         strategy.getAttributeVoList().forEach(attribute -> {
             resultBuilder.append("rule ").append("\"").append(attribute.getAttributeName()).append("\"").append("\n");
-//            resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
+            resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
             resultBuilder.append("\t").append("salience 10").append("\n");
             resultBuilder.append("\t").append("when").append("\n");
             resultBuilder.append("\t\t");
@@ -60,7 +60,7 @@ public class ScoreCardParser implements Parser{
 
         /* 计算赋分和值:加权求和 start*/
         resultBuilder.append("rule ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
-//        resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
+        resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
         resultBuilder.append("\t").append("salience 1").append("\n");
         resultBuilder.append("\t").append("when").append("\n");
         strategy.getAttributeVoList().forEach(attribute -> {
