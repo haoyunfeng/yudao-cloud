@@ -11,12 +11,12 @@ import lombok.Data;
 @Data
 @Builder
 public class Ratio {
-
+    /** 评分类型*/
     private String type;
-
+    /** 赋分*/
     private int ratio;
-
+    /** 评分*/
     private Double score;
-
+    /** 规则名称*/
     private String ruleName;
 }

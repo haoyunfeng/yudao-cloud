@@ -3,8 +3,6 @@ package cn.iocoder.engine.drools.parser;
 import cn.iocoder.engine.drools.enums.OperateEnum;
 import cn.iocoder.engine.drools.vo.scorecard.ScoreCardStrategy;
 
-import java.util.Locale;
-
 /**
  * @author haoyunfeng
  * @create 2024/7/5 15:40
@@ -18,7 +16,7 @@ public class ScoreCardParser implements Parser{
 
         /* drl文件头解析 start*/
         resultBuilder.append("package ").append(strategy.getPackageName()).append("\n");
-        strategy.getAttributeVoList().forEach(attribute -> {
+        strategy.getAttributeList().forEach(attribute -> {
             resultBuilder.append("import ").append(attribute.getClassName()).append("\n");
         });
         resultBuilder.append("import java.util.Map");
@@ -26,7 +24,7 @@ public class ScoreCardParser implements Parser{
         /* drl文件头解析 start*/
 
         /* 赋分规则drl解析 start*/
-        strategy.getAttributeVoList().forEach(attribute -> {
+        strategy.getAttributeList().forEach(attribute -> {
             resultBuilder.append("rule ").append("\"").append(attribute.getAttributeName()).append("\"").append("\n");
             resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
             resultBuilder.append("\t").append("salience 10").append("\n");
@@ -63,7 +61,7 @@ public class ScoreCardParser implements Parser{
         resultBuilder.append("agenda-group ").append("\"").append(strategy.getStrategyName()).append("\"").append("\n");
         resultBuilder.append("\t").append("salience 1").append("\n");
         resultBuilder.append("\t").append("when").append("\n");
-        strategy.getAttributeVoList().forEach(attribute -> {
+        strategy.getAttributeList().forEach(attribute -> {
             String variable = attribute.getClassName().substring(attribute.getClassName().lastIndexOf(".")+1);
             resultBuilder.append("\t\t");
             resultBuilder.append("$").append(attribute.getAttributeName()).append(":").append(variable).append("(");
@@ -75,9 +73,9 @@ public class ScoreCardParser implements Parser{
 
         resultBuilder.append("\t").append("then").append("\n");
         resultBuilder.append("\t\t").append("$map.put(\"total\",");
-        strategy.getAttributeVoList().forEach(attribute -> {
+        strategy.getAttributeList().forEach(attribute -> {
             resultBuilder.append("$").append(attribute.getAttributeName()).append(".getScore()");
-            if(strategy.getAttributeVoList().indexOf(attribute) != (strategy.getAttributeVoList().size() -1)){
+            if(strategy.getAttributeList().indexOf(attribute) != (strategy.getAttributeList().size() -1)){
                 resultBuilder.append(" + ");
             }
         });

@@ -19,5 +19,5 @@ public class ScoreCardStrategy {
     /** 是否支持权重 */
     Boolean isWeight;
     /** 属性列表 */
-    List<Attribute> attributeVoList;
+    List<Attribute> attributeList;
 }
