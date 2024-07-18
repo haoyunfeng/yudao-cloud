@@ -1,0 +1,53 @@
+{
+    "name":"handle-ratio",
+    "isWeight":"true",
+    "attributeList":[
+        {
+            "attributeName":"handleRatio",
+            "attributeType":"bean",
+            "className":"cn.iocoder.engine.drools.model.fact.Ratio" ,
+            "attributeClass":"" ,
+            "weight":"40",
+            "outPutField":"",
+            "conditionList":[
+                {
+                    "fieldName":"ratio",
+                    "operator":"greater",
+                    "value":"40"
+                },
+                {
+                    "fieldName":"ratio",
+                    "operator":"less",
+                    "value":"80"
+                },
+                {
+                    "fieldName":"type",
+                    "operator":"equal",
+                    "value":"1"
+                }
+            ],
+            "score":"60"
+        },
+        {
+            "attributeName":"refluxRatio",
+            "attributeType":"bean",
+            "className":"attribute" ,
+            "attributeClass":"cn.iocoder.engine.drools.model.fact.Ratio" ,
+            "weight":"60",
+            "conditionList":[
+                {
+                    "fieldName":"ratio",
+                    "operator":"less",
+                    "value":"40"
+                }
+                ,
+                {
+                    "fieldName":"type",
+                    "operator":"equal",
+                    "value":"2"
+                }
+            ],
+            "score":"40"
+        }
+    ]
+}
